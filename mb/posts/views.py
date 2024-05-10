@@ -3,10 +3,12 @@ from django.shortcuts import render
 from django.views.generic import (
     ListView,
     CreateView,
-    DetailView
+    DetailView,
+    
 )
 
 from .models import Post
+
 
 # Create your views here.
 class PostListView(ListView):
@@ -18,6 +20,7 @@ class PostDetailView(DetailView):
     model = Post
     
 class PostCreateView(CreateView):
-    template_name = "post/new.html"
+    template_name = "posts/new.html"
     model = Post
     fields = ["title", "subtitle", "body"]
+   
