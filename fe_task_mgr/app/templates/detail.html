@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
 
-{% block title}{{task["name"]}}{% endblock title %}
+{% block title %}{{task["name"]}}{% endblock title %}
 
 {% block content %}
 <h1>{{ task["name"] }}</h1>
 <h5>{{ task["summary"] }}</h5>
 <p>Description: {{ task["description"] }}</p>
+<a href="{{ url_for('edit_task', pk=task['id']) }}" class="btn btn-primary">Change</a>
+
 {% endblock content %}
 
 
