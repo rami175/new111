@@ -12,6 +12,7 @@ class Status(models.Model):
     def __str__(self):
         return self.name
     
+    
 class Post(models.Model):
     title = models.CharField(max_length=128)
     subtitle = models.CharField(max_length=256)

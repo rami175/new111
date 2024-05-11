@@ -4,6 +4,8 @@
 
 {% block content %} 
 <h1>Posts</h1>
+<a class="btn btn-primary" href="{% url 'drafts' %}">only show draft posts</a>
+<a class="btn btn-primary" href="{% url 'published' %}">only show published posts</a>
 <ul>
     {% for post in post_list %}
     <li>
