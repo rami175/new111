@@ -31,16 +31,15 @@ class DraftPostListView(LoginRequiredMixin, ListView):
         return context
               
 #only shows published posts to everyone
-class PublishedPostListView(LoginRequiredMixin, ListView):
+class PublishedPostListView( ListView):
     template_name = "posts/list.html"
     model = Post
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        draft_status = Status.objects.get(name="published")
+        published_status = Status.objects.get(name="published")
         context["post_list"] = Post.objects.filter(
-            status = draft_status).filter(
-                author = self.request.user).order_by("created_on").reverse()
+            status = published_status).order_by("created_on").reverse()
         return context
 
         

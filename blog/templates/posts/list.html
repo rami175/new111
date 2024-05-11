@@ -6,12 +6,26 @@
 <h1>Posts</h1>
 <a class="btn btn-primary" href="{% url 'drafts' %}">only show draft posts</a>
 <a class="btn btn-primary" href="{% url 'published' %}">only show published posts</a>
-<ul>
+<br>
+<br>
+<div  style="width: 80%; display: grid; grid-template-columns: auto auto auto ; row-gap: 5px; ">
+
     {% for post in post_list %}
-    <li>
-        <a href="{% url 'detail' post.id %}"> {{ post.title }}</a>
-    </li>
+    <div class="card" style="width: 18rem;  box-shadow: 5px 5px lightblue;">
+        <div class="card-body">
+          <h5 class="card-title">{{ post.title }}</h5>
+          <h6 class="card-subtitle mb-2 text-body-secondary">{{ post.body|truncatechars:128 }}</h6>
+          {% if user.is_authenticated %}
+          {% if post.author == user %}
+          <a class="btn btn-sm btn-success" href="{% url 'edit' post.id %}"> Go to {{ post.title }}</a>
+          
+          <a class="btn btn-sm btn-danger" href="{% url 'delete' post.id %}">Delete post</a>
+          {% endif %}
+          {% endif %}
+        </div>
+      </div>
     {% endfor %}
-</ul>
+</div>
+
 
 {% endblock content %}
