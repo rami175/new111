@@ -16,6 +16,13 @@ from .models import Post, Status
 class PostListView(ListView):
     template_name = "posts/list.html"
     model = Post
+    #show published posts
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        published_status = Status.objects.get(name="published")
+        context["post_list"] = Post.objects.filter(
+            status = published_status).order_by("created_on").reverse()
+        return context
     
 #only showing the draft posts
 class DraftPostListView(LoginRequiredMixin, ListView):
@@ -31,18 +38,31 @@ class DraftPostListView(LoginRequiredMixin, ListView):
         return context
               
 #only shows published posts to everyone
-class PublishedPostListView( ListView):
+# class PublishedPostListView(ListView):
+#     template_name = "posts/list.html"
+#     model = Post
+    
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         published_status = Status.objects.get(name="published")
+#         context["post_list"] = Post.objects.filter(
+#             status = published_status).order_by("created_on").reverse()
+#         return context
+
+
+class ArchivedPostListView( ListView):
     template_name = "posts/list.html"
     model = Post
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        published_status = Status.objects.get(name="published")
+        archive_status = Status.objects.get(name="archived")
         context["post_list"] = Post.objects.filter(
-            status = published_status).order_by("created_on").reverse()
+            status = archive_status).order_by("created_on").reverse()
         return context
 
-        
+
+       
 class PostDetailView(DetailView):
     template_name = "posts/detail.html"
     model = Post
