@@ -9,6 +9,7 @@
 {% if user.is_authenticated %}
 <a class="btn btn-primary" href="{% url 'archived' %}">only show Archived posts</a>
 {% endif %}
+<a class="btn btn-success" href="{% url 'list' %}">back</a>
 <br>
 <br>
 <div  style="width: 80%; display: grid; grid-template-columns: auto auto auto ; row-gap: 5px; ">
